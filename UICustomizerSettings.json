@@ -1,0 +1,147 @@
+{
+  "UICSettings": "0.1.9.91",
+  "addWebCamZoom": true,
+  "centerTopIcons": true,
+  "compactMenu": true,
+  "compressTempControls": true,
+  "customCSS": "",
+  "disableTermInactive": false,
+  "filesFullHeight": true,
+  "fixedFooter": true,
+  "fixedHeader": false,
+  "fluidLayout": true,
+  "gcodeFullWidth": false,
+  "gcodeZoom": 3,
+  "hideGraphBackground": true,
+  "hideMainCam": false,
+  "mainTabs": [
+    [
+      "control_link",
+      true,
+      false,
+      "fas fa-expand-arrows-alt",
+      true,
+      false
+    ],
+    [
+      "temp_link",
+      true,
+      false,
+      "fas fa-thermometer-half",
+      true,
+      false
+    ],
+    [
+      "timelapse_link",
+      true,
+      false,
+      "fas fa-film",
+      true,
+      false
+    ],
+    [
+      "term_link",
+      true,
+      false,
+      "fas fa-terminal",
+      true,
+      false
+    ],
+    [
+      "gcode_link",
+      true,
+      false,
+      "fab fa-codepen",
+      true,
+      false
+    ],
+    [
+      "tab_plugin_bedlevelvisualizer_link",
+      true,
+      false,
+      false,
+      "textOnly",
+      "#f00000"
+    ],
+    [
+      "tab_plugin_CalibrationTools_link",
+      true,
+      false,
+      false,
+      "textOnly",
+      "#000000"
+    ],
+    [
+      "tab_plugin_filemanager_link",
+      true,
+      false,
+      false,
+      "textOnly",
+      "#000000"
+    ],
+    [
+      "tab_plugin_gpiostatus_link",
+      true,
+      false,
+      false,
+      "textOnly",
+      "#000000"
+    ],
+    [
+      "tab_plugin_dashboard_link",
+      true,
+      false,
+      false,
+      "textOnly",
+      "#000000"
+    ],
+    [
+      "undefined",
+      true,
+      false,
+      false,
+      "textOnly",
+      "#000000"
+    ]
+  ],
+  "mainTabsCustomize": true,
+  "mainTabsIconSize": "",
+  "navbarplugintempfix": true,
+  "responsiveMode": true,
+  "rows": [
+    {
+      "_00#connection_wrapper": true,
+      "_01#sidebar_plugin_firmware_check_info_wrapper": true,
+      "_02#files_wrapper": true,
+      "_03#sidebar_plugin_firmware_check_warning_wrapper": false
+    },
+    {
+      "_00div.UICmainTabs": true
+    },
+    {
+      "_00#UICGcodeVWidget": true,
+      "_01#UICTempWidget": true,
+      "_02#UICWebCamWidget": true,
+      "_03#sidebar_plugin_action_command_notification_wrapper": true,
+      "_04#state_wrapper": true
+    }
+  ],
+  "saveAccordions": true,
+  "theme": "darkgreen",
+  "themeLocal": false,
+  "themeVersion": "0.2.9.8",
+  "topIconSort": [
+    "navbar_plugin_stickypad",
+    "navbar_plugin_action_command_prompt",
+    "navbar_plugin_wifistatus",
+    "navbar_plugin_logging_seriallog",
+    "navbar_plugin_logging_plugintimingslog",
+    "navbar_plugin_pi_support"
+  ],
+  "webcamzoomtype": "float",
+  "widths": [
+    "3",
+    "6",
+    "3"
+  ]
+}
