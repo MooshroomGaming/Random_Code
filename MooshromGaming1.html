@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mooshrom Gaming</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            transition: background 0.3s, color 0.3s;
+            margin: 0;
+        }
+        .dark-mode {
+            background: #222;
+            color: white;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            gap: 20px;
+        }
+        .logo img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            margin-right: 10px;
+        }
+        .menu {
+            display: flex;
+            align-items: center;
+            margin-right: auto;
+            position: relative;
+            gap: 15px;
+        }
+        .menu button {
+            background: #444;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+            height: 40px;
+        }
+        .menu button:hover {
+            background: #555;
+        }
+        .menu-content {
+            display: none;
+            position: absolute;
+            background: white;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            z-index: 2;
+            top: 100%;
+            left: 0;
+            padding: 10px 0;
+        }
+        .menu-content a {
+            display: block;
+            padding: 10px 15px;
+            color: #444;
+            text-decoration: none;
+            border-bottom: 1px solid #ddd;
+        }
+        .menu-content a:last-child {
+            border-bottom: none;
+        }
+        .menu-content a:hover {
+            background: #e0e0e0;
+            color: black;
+        }
+        .search-container {
+            position: relative;
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .search-bar {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding-right: 40px;
+            background: #444;
+            color: white;
+        }
+        .search-bar::placeholder {
+            color: #bbb;
+        }
+        .clear-button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            padding: 5px 10px;
+            border: none;
+            background: #ff5555;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .suggestions {
+            position: absolute;
+            background: white;
+            color: black;
+            border: 1px solid #ddd;
+            z-index: 1;
+            margin-top: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+            border-radius: 5px;
+            display: none;
+            width: 300px;
+        }
+        .suggestion-item {
+            padding: 8px 10px;
+            cursor: pointer;
+        }
+        .suggestion-item:hover {
+            background: #f0f0f0;
+        }
+        .error-message {
+            color: red;
+            padding: 8px 10px;
+            font-size: 14px;
+        }
+        .dark-mode .suggestions {
+            background: #444;
+            color: white;
+            border-color: #666;
+        }
+        .dark-mode .suggestion-item:hover {
+            background: #555;
+        }
+        .dark-mode .error-message {
+            color: #ff9999;
+        }
+        .search-help {
+            background: #444;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-left: 10px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .search-help:hover {
+            background: #555;
+        }
+        .dark-mode .search-help {
+            background: #4CAF50;
+        }
+        .content {
+            padding: 20px;
+        }
+        .slider {
+            overflow: hidden;
+            position: relative;
+            margin: 20px 0;
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+        }
+        .slide {
+            min-width: 300px;
+            margin-right: 10px;
+            text-align: center;
+            background: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .dark-mode .slide {
+            background: #333;
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .slide-title {
+            margin-top: 5px;
+            font-size: 14px;
+            padding: 10px;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .prevButton,
+        .nextButton {
+            background: #444;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+        .prevButton:hover,
+        .nextButton:hover {
+            background: #555;
+        }
+        .toggle-switch {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+        .toggle-image {
+            width: 20px;
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+        .links img {
+            width: 32px;
+            height: 32px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="mooshrom_logo.png" alt="Mooshrom Logo">
+        </div>
+        <div class="menu">
+            <button onclick="toggleMenu(event)">Menu</button>
+            <div class="menu-content" id="menuContent">
+                <a href="index.html">Home</a>
+                <a href="/MooshromJR">MooshromJR</a>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" class="search-bar" id="searchBar" placeholder="Search (do /help for info on how to use)" onkeyup="showSuggestions(this.value)" autocomplete="off">
+            <button class="clear-button" onclick="clearSearch()">X</button>
+            <div class="suggestions" id="suggestions"></div>
+        </div>
+        <button class="search-help" onclick="window.location.href='search-help.html'">?</button>
+        <div class="links">
+            <a href="https://github.com/MooshroomGaming" target="_blank"><img src="github_logo.png" alt="GitHub"></a>
+            <a href="https://www.tiktok.com/@mooshromgaming09?_t=8jtFcP6yVos&_r=1" target="_blank"><img src="tiktok_logo.png" alt="TikTok"></a>
+            <a href="https://discord.com/invite/2wsEWRP583" target="_blank"><img src="discord_logo.png" alt="Discord"></a>
+            <a href="https://mooshromgaming-shop.fourthwall.com/" target="_blank"><img src="merch_logo.png" alt="Merch" style="width: 30px;"></a>
+        </div>
+        <div class="toggle-switch" onclick="toggleDarkMode()">
+            <div class="lever">D/M</div>
+            <span>Dark Mode</span>
+        </div>
+    </div>
+
+    <div class="content">
+        <h2>Video Highlights</h2>
+        <div class="slider" id="videoSlider">
+            <div class="slides" id="slides">
+                <div class="slide">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/E8Qv3o9G18Q?si=Zc0OGPzm-StTGJ-d" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen></iframe>
+                    </div>
+                    <div class="slide-title">Suger,we,re going down Fall Out Boy on my tesla coil</div>
+                </div>
+                <div class="slide">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/Lb9ijpMlO5U?si=HSbdSR7SfP4zjCQZ" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen></iframe>
+                    </div>
+                    <div class="slide-title">Thnks fr th Mmrs Fall Out Boy on my tesla coil</div>
+                </div>
+                <div class="slide">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/Lb9ijpMlO5U?si=HSbdSR7SfP4zjCQZ" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen></iframe>
+                    </div>
+                    <div class="slide-title">What's My Age Again blink 182 on my Tesla Coil</div>
+                </div>
+                 <div class="slide">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/Kb3ssM2nrto?si=VSKXwH_8xBkIWEtH" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen></iframe>
+                    </div>
+                    <div class="slide-title">All Star by Smash Mouth on my Tesla Coil</div>
+                </div>
+                <div class="slide">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/XZiOFe4A3uo?si=0m2wfoLwxYtBweRJ" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen></iframe>
+                    </div>
+                    <div class="slide-title">Good Riddance (Time of Your Life) Green Day on my Tesla Coil</div>
+                </div>
+                <div class="slide">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/B9niiFvRJnQ?si=gkr4v_SRNN2iQJb5" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen></iframe>
+                    </div>
+                    <div class="slide-title">Imperial march on my Tesla Coil</div>
+                </div>
+                <div class="slide">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/kUtC2_2REgk?si=lIL5UYi-nXfBOnbU" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen></iframe>
+                    </div>
+                    <div class="slide-title">Happy Valentine's Day Beautiful Things Benson Boone on my Tesla Coil</div>
+                </div>
+                <div class="slide">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/GK7-RapdRL0?si=_EF9j1mpg06ndULz" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen></iframe>
+                    </div>
+                    <div class="slide-title">Weeknd x Eminem Hills on my Tesla Coil</div>
+                </div>
+                <div class="slide">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/3PkDGVNu4SM?si=_Q0EF7-sMv1mwARz" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen></iframe>
+                    </div>
+                    <div class="slide-title">One Step Closer Linkin park on my Tesla Coil</div>
+                </div>
+                <div class="slide">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/lOzJUJdHm5Q?si=yK8NamQcjEEExfDp" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen></iframe>
+                    </div>
+                    <div class="slide-title">Tesla Coil and Neon bulb</div>
+                </div>
+            </div>
+        </div>
+        <div class="button-container">
+            <button class="prevButton" onclick="prevSlide()">&#10094; Prev</button>
+            <button class="nextButton" onclick="nextSlide()">Next &#10095;</button>
+        </div>
+    </div>
+
+    <script>
+        // Dark Mode Functions
+        function initializeDarkMode() {
+            if (localStorage.getItem('mooshromDarkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                updateDarkModeElements();
+            }
+        }
+
+        function updateDarkModeElements() {
+            const suggestions = document.getElementById('suggestions');
+            if (suggestions) {
+                suggestions.classList.toggle('dark-mode', document.body.classList.contains('dark-mode'));
+            }
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('mooshromDarkMode', isDark ? 'enabled' : 'disabled');
+            updateDarkModeElements();
+        }
+
+        // Video Slider
+        let currentIndex = 0;
+        const slides = document.getElementById("slides");
+        const totalSlides = document.getElementsByClassName("slide").length;
+
+        function showSlide(index) {
+            const slideWidth = document.getElementsByClassName("slide")[0].offsetWidth;
+            slides.style.transform = `translateX(${-index * (slideWidth + 10)}px)`;
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            showSlide(currentIndex);
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentIndex);
+        }
+
+        // Search Functionality
+        async function showSuggestions(query) {
+            const suggestionsContainer = document.getElementById("suggestions");
+            suggestionsContainer.innerHTML = "";
+            
+            if (!query) {
+                suggestionsContainer.style.display = "none";
+                return;
+            }
+
+            try {
+                const response = await fetch('search_data.json');
+                if (!response.ok) throw new Error('Failed to load search data');
+                const data = await response.json();
+                
+                const filteredSuggestions = data.suggestions.filter(item => 
+                    item.title.toLowerCase().includes(query.toLowerCase())
+                ).slice(0, 5); // Limit to 5 suggestions
+
+                if (filteredSuggestions.length > 0) {
+                    filteredSuggestions.forEach(item => {
+                        const div = document.createElement("div");
+                        div.className = "suggestion-item";
+                        div.textContent = item.title;
+                        div.onclick = () => window.location.href = item.link;
+                        suggestionsContainer.appendChild(div);
+                    });
+                    suggestionsContainer.style.display = "block";
+                } else {
+                    suggestionsContainer.innerHTML = '<div class="suggestion-item">No results found</div>';
+                    suggestionsContainer.style.display = "block";
+                }
+            } catch (error) {
+                console.error('Search error:', error);
+                suggestionsContainer.innerHTML = '<div class="error-message">Search temporarily unavailable</div>';
+                suggestionsContainer.style.display = "block";
+            }
+        }
+
+        function clearSearch() {
+            const searchBar = document.getElementById("searchBar");
+            searchBar.value = "";
+            const suggestions = document.getElementById("suggestions");
+            suggestions.innerHTML = "";
+            suggestions.style.display = "none";
+        }
+
+        function toggleMenu(event) {
+            event.stopPropagation();
+            const menuContent = document.getElementById("menuContent");
+            menuContent.style.display = menuContent.style.display === "block" ? "none" : "block";
+        }
+
+        // Initialize
+        document.addEventListener("DOMContentLoaded", function() {
+            initializeDarkMode();
+            
+            // Show first slide
+            showSlide(0);
+            
+            // Search bar focus
+            const searchBar = document.getElementById("searchBar");
+            searchBar.addEventListener('focus', function() {
+                if (this.value && document.getElementById("suggestions").children.length > 0) {
+                    document.getElementById("suggestions").style.display = "block";
+                }
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener("click", function(event) {
+            const menuContent = document.getElementById("menuContent");
+            if (!event.target.closest('.menu') && menuContent.style.display === "block") {
+                menuContent.style.display = "none";
+            }
+            
+            const searchBar = document.getElementById("searchBar");
+            const suggestions = document.getElementById("suggestions");
+            if (!event.target.closest('.search-container') && suggestions.style.display === "block") {
+                suggestions.style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>

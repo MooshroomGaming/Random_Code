@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Clicker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>View Clicker</h1>
+        <p>Views: <span id="views">0</span></p>
+        <button id="clickButton">Click for Views</button>
+        <button id="shopButton">Open Shop</button>
+        <button id="cheatButton">Enter Cheat Code</button>
+        <div id="shop" class="hidden">
+            <h2>Shop</h2>
+            <button onclick="buyUpgrade(100, 1)">Upgrade Click Power ($100)</button>
+            <button onclick="buyAutoClicker(500)">Buy Auto Clicker ($500)</button>
+            <button onclick="closeShop()">Close Shop</button>
+        </div>
+        <div id="storyMode" class="hidden">
+            <h2>Story Mode</h2>
+            <p id="storyText">Welcome to Story Mode! Make choices to progress.</p>
+            <button onclick="startStory()">Start</button>
+        </div>
+    </div>
+    <script>
+        let views = 0;
+        let clickPower = 1;
+        let autoClickers = 0;
+        let achievements = [];
+
+        document.getElementById("clickButton").addEventListener("click", function() {
+            views += clickPower;
+            updateViews();
+        });
+
+        document.getElementById("shopButton").addEventListener("click", function() {
+            document.getElementById("shop").classList.toggle("hidden");
+        });
+
+        document.getElementById("cheatButton").addEventListener("click", function() {
+            let code = prompt("Enter Cheat Code:");
+            if (code === "1mill") {
+                views += 1000000;
+            }
+            updateViews();
+        });
+
+        function buyUpgrade(cost, powerIncrease) {
+            if (views >= cost) {
+                views -= cost;
+                clickPower += powerIncrease;
+                updateViews();
+            } else {
+                alert("Not enough views!");
+            }
+        }
+
+        function buyAutoClicker(cost) {
+            if (views >= cost) {
+                views -= cost;
+                autoClickers++;
+                setInterval(() => {
+                    views += autoClickers;
+                    updateViews();
+                }, 1000);
+                updateViews();
+            } else {
+                alert("Not enough views!");
+            }
+        }
+
+        function updateViews() {
+            document.getElementById("views").textContent = views;
+            checkAchievements();
+        }
+
+        function closeShop() {
+            document.getElementById("shop").classList.add("hidden");
+        }
+
+        function startStory() {
+            document.getElementById("storyText").textContent = "Your journey to YouTube fame begins! Choose wisely.";
+        }
+
+        function checkAchievements() {
+            if (views >= 10000 && !achievements.includes("10K Club")) {
+                achievements.push("10K Club");
+                alert("Achievement Unlocked: 10K Club!");
+            }
+        }
+
+        updateViews();
+    </script>
+</body>
+</html>

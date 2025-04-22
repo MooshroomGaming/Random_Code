@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mooshrom Gaming</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            transition: background 0.3s, color 0.3s;
+            margin: 0;
+        }
+        .dark-mode {
+            background: #222;
+            color: white;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+        }
+        .logo img {
+            width: 100px; /* Adjust logo size as needed */
+        }
+        .menu {
+            display: flex;
+            align-items: center;
+            margin-right: auto; /* Push to the left */
+            position: relative; /* For dropdown positioning */
+        }
+        .menu button {
+            background: #444;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-right: 10px; /* Space between menu button and dropdown */
+            transition: background 0.3s;
+        }
+        .menu button:hover {
+            background: #555; /* Darker background on hover */
+        }
+        .menu-content {
+            display: none; /* Initially hidden */
+            position: absolute;
+            background: white;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            z-index: 2; /* Ensure dropdown is on top */
+            top: 100%; /* Align below the menu button */
+            left: 0; /* Align to the left of the menu button */
+            padding: 10px 0; /* Padding for dropdown */
+        }
+        .menu-content a {
+            display: block; /* Full-width clickable area */
+            padding: 10px 15px; /* Padding for a larger target */
+            color: #444; /* Text color for links */
+            text-decoration: none; /* Remove underline */
+            border-bottom: 1px solid #ddd; /* Divider between items */
+        }
+        .menu-content a:last-child {
+            border-bottom: none; /* Remove last item border */
+        }
+        .menu-content a:hover {
+            background: #e0e0e0; /* Light background on hover */
+            color: black; /* Change text color on hover */
+        }
+        .search-container {
+            position: relative;
+            margin-left: 20px; /* Space between menu and search */
+        }
+        .search-bar {
+            padding: 5px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding-right: 40px; /* Add space for clear button */
+        }
+        .clear-button {
+            position: absolute;
+            right: 5px; /* Adjusted position of the clear button */
+            top: 5px; /* Align with search input */
+            padding: 5px 10px;
+            border: none;
+            background: #ff5555; /* Red color for visibility */
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px; /* Slightly smaller font size */
+        }
+        .suggestions {
+            display: none; /* Initially hidden */
+            position: absolute;
+            border: 1px solid #ddd;
+            width: 300px;
+            max-height: 150px;
+            overflow-y: auto;
+            z-index: 1; /* Ensure suggestions are visible */
+            background: white; /* Default background in light mode */
+            color: black; /* Default text color in light mode */
+        }
+        .suggestions.light-mode {
+            background: white;
+            color: black;
+        }
+        .suggestions.dark-mode {
+            background: #444;
+            color: white;
+        }
+        .suggestions div {
+            padding: 8px;
+            cursor: pointer;
+        }
+        .suggestions div:hover {
+            background: #f0f0f0; /* Light mode hover effect */
+        }
+        .dark-mode .suggestions div:hover {
+            background: #555; /* Darker hover for dark mode */
+        }
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-left: auto;
+        }
+        .lever {
+            width: 50px;
+            height: 50px;
+            background-image: url('minecraft_lever_off.png');
+            background-size: cover;
+            margin-right: 8px; /* Added margin for spacing */
+        }
+        .dark-mode .lever {
+            background-image: url('minecraft_lever_on.png');
+        }
+        .content {
+            padding: 20px;
+        }
+        .shoutouts {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .dark-mode .shoutouts {
+            background: #333; /* Dark background for shoutouts */
+            color: white; /* White text */
+        }
+        .links img {
+            width: 32px;
+            height: 32px;
+            margin-left: 10px;
+        }
+        .custom-image {
+            width: 64px;
+            height: 64px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="mooshrom_logo.png" alt="Mooshrom Logo">
+        </div>
+        <div class="menu">
+            <button onclick="toggleMenu()">Menu</button>
+            <div class="menu-content" id="menuContent">
+                <a href="/MooshromGaming">Mooshrom Gaming</a>
+                <a href="/MooshromJR">MooshromJR</a>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" class="search-bar" id="searchBar" placeholder="Search for videos..." onkeyup="showSuggestions(this.value)" autocomplete="off">
+            <button class="clear-button" onclick="clearSearch()">X</button>
+            <div class="suggestions" id="suggestions"></div>
+        </div>
+        <div class="links">
+            <a href="https://github.com/Mooshrom" target="_blank"><img src="github_logo.png" alt="GitHub" class="custom-image"></a>
+            <a href="https://www.tiktok.com/@Mooshrom" target="_blank"><img src="tiktok_logo.png" alt="TikTok" class="custom-image"></a>
+            <a href="https://discord.gg/Mooshrom" target="_blank"><img src="discord_logo.png" alt="Discord" class="custom-image"></a>
+            <a href="https://mooshrommerch.com" target="_blank"><img src="merch_logo.png" alt="Merch" class="custom-image"></a>
+        </div>
+        <div class="toggle-switch" onclick="toggleDarkMode()">
+            <div class="lever"></div>
+            <span>Dark Mode</span>
+        </div>
+    </div>
+    <div class="content">
+        <h2>Shoutouts for Top Fans</h2>
+        <div class="shoutouts">
+            <p>Feature your biggest supporters here!</p>
+            <p>Shoutout to our amazing fans: Alice, Bob, Charlie!</p>
+        </div>
+        <h2>Updates / News</h2>
+        <div class="updates">
+            <p>Latest updates about Mooshrom:</p>
+            <ul>
+                <li>New video on our channel!</li>
+                <li>Upcoming livestream event scheduled.</li>
+                <li>Check out our latest merchandise!</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        function toggleMenu() {
+            const menuContent = document.getElementById("menuContent");
+            // Toggle the display of the menu content
+            menuContent.style.display = menuContent.style.display === "block" ? "none" : "block";
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            const suggestions = document.getElementById("suggestions");
+            if (document.body.classList.contains("dark-mode")) {
+                suggestions.classList.remove("light-mode");
+                suggestions.classList.add("dark-mode");
+            } else {
+                suggestions.classList.remove("dark-mode");
+                suggestions.classList.add("light-mode");
+            }
+        }
+        
+        function showSuggestions(value) {
+            const suggestions = document.getElementById("suggestions");
+            suggestions.innerHTML = "";
+            const videos = {
+                "Minecraft Tesla Coil Music": "video1.html",
+                "Mooshrom Gaming Highlights": "video2.html",
+                "Storm Chasing Vlog": "video3.html",
+                "ESP32 Coding Tutorial": "video4.html"
+            };
+            if (value.length > 0) {
+                const filtered = Object.keys(videos).filter(item => item.toLowerCase().includes(value.toLowerCase()));
+                filtered.forEach(item => {
+                    const div = document.createElement("div");
+                    div.textContent = item;
+                    div.onclick = function() {
+                        window.location.href = videos[item];
+                    };
+                    suggestions.appendChild(div);
+                });
+                suggestions.style.display = "block"; // Display suggestions
+            } else {
+                suggestions.style.display = "none"; // Hide if input is empty
+            }
+        }
+
+        function clearSearch() {
+            const searchBar = document.getElementById("searchBar");
+            searchBar.value = ""; // Clear the input field
+            const suggestions = document.getElementById("suggestions");
+            suggestions.innerHTML = ""; // Clear any suggestions in the dropdown
+            suggestions.style.display = "none"; // Hide suggestions
+        }
+
+        // Event listener for clicks outside of the search box
+        document.addEventListener("click", function(event) {
+            const suggestions = document.getElementById("suggestions");
+            const searchBar = document.getElementById("searchBar");
+            const menuContent = document.getElementById("menuContent");
+            const menuButton = document.querySelector(".menu button");
+
+            // If the click target is outside the search input, suggestions, and menu
+            if (!searchBar.contains(event.target) && 
+                !suggestions.contains(event.target) && 
+                !menuButton.contains(event.target) &&
+                !menuContent.contains(event.target)) {
+                
+                // Hide suggestions if search box is empty
+                if (searchBar.value.trim() === "") {
+                    suggestions.style.display = "none";
+                } else {
+                    suggestions.style.display = "block"; // Keep suggestions visible if search box has value
+                }
+                // Hide menu if it's open
+                menuContent.style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>

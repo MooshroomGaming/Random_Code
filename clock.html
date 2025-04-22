@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+</html>
+<div class="dropdown">
+  <button class="dropbtn">=</button>
+  <div class="dropdown-content">
+  <color>  <body style=input type="color">
+    <input type="color"> </color>
+  <RGB>  <button type="button" onclick="myFunction()">RGB</button></RGB>
+<script>
+function myFunction()
+{
+setTimeout(() => { document.body.style.backgroundColor= "red";
+setTimeout(() => { document.body.style.backgroundColor= "blue";
+setTimeout(() => { document.body.style.backgroundColor= "green";
+setTimeout(() => { document.body.style.backgroundColor= "red";
+setTimeout(() => { document.body.style.backgroundColor= "blue";
+setTimeout(() => { document.body.style.backgroundColor= "green";
+setTimeout(() => { document.body.style.backgroundColor= "red";
+setTimeout(() => { document.body.style.backgroundColor= "blue";
+setTimeout(() => { document.body.style.backgroundColor= "green"; }, 2000)}, 2000)}, 2000)}, 2000)}, 2000)}, 2000)}, 2000);}, 2000);}, 2000);
+}
+</script> 
+<car><button type="button" onclick="myFunction1()">car</button></car>
+<script>
+function myFunction1()
+{
+document.body.style.backgroundImage = "url('https://unblocked-games-arcade.neocities.org/clock/pic1.png')";
+}
+</script>
+<sun><button type="button" onclick="myFunction2()">sun</button></sun>
+<script>
+function myFunction2()
+{
+document.body.style.backgroundImage = "url('https://unblocked-games-arcade.neocities.org/clock/pic2.png')";
+}
+</script>
+<reload><button type="button" onclick="myFunction3()">reload</button></reload>
+<script>
+function myFunction3()
+{
+location.reload()
+}
+</script>
+<f1logo><button type="button" onclick="myFunction4()">f1 logo</button></f1logo>
+<script>
+function myFunction4()
+{
+document.body.style.backgroundImage = "url('https://unblocked-games-arcade.neocities.org/clock/pic3.png')";
+}
+</script>
+<lambologo><button type="button" onclick="myFunction5()">lamborghini logo </button></lambologo>
+<script>
+function myFunction5()
+{
+document.body.style.backgroundImage = "url('https://unblocked-games-arcade.neocities.org/clock/pic4.png')";
+}
+</script>
+<bt><button type="button" onclick="myFunction6()">bed time</button></bt>
+<script>
+function myFunction6()
+{
+document.body.style.backgroundColor = "black";
+}
+</script>
+<bt><button type="button" onclick="myFunction7()">updata log</button></bt>
+<script>
+function myFunction7()
+{
+window.alert("v1 clock,v2 custom backgrounf color rgb,v3 car,sun,f1logo,lambologo,reload v4 bed time,update log");
+}
+</script>
+<sun><button type="button" onclick="myFunction2()"></button></sun>
+<script>
+function myFunction2()
+{
+document.body.style.backgroundImage = "url('https://unblocked-games-arcade.neocities.org/clock/pic2.png')";
+}
+</script>
+  </div>
+</div>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content=
+	"width=device-width, initial-scale=1.0">
+	<title>clock</title>
+	<link rel="stylesheet" href="clock2.css">
+</head>
+<body>
+	<div id="clock">8:10:45</div>
+<script>
+// Calling showTime function at every second
+setInterval(showTime, 1000);
+
+// Defining showTime funcion
+function showTime() {
+	// Getting current time and date
+	let time = new Date();
+	let hour = time.getHours();
+	let min = time.getMinutes();
+	let sec = time.getSeconds();
+	am_pm = "AM";
+
+	// Setting time for 12 Hrs format
+	if (hour >= 12) {
+		if (hour > 12) hour -= 12;
+		am_pm = "PM";
+	} else if (hour == 0) {
+		hr = 12;
+		am_pm = "AM";
+	}
+
+	hour =
+		hour < 10 ? "0" + hour : hour;
+	min = min < 10 ? "0" + min : min;
+	sec = sec < 10 ? "0" + sec : sec;
+
+	let currentTime =
+		hour +
+		":" +
+		min +
+		":" +
+		sec +
+		am_pm;
+
+	// Displaying the time
+	document.getElementById(
+		"clock"
+	).innerHTML = currentTime;
+}
+
+showTime();
+
+document.querySelector('input').addEventListener('input', function(){
+  document.body.style.backgroundColor = this.value;
+})
+
+</script>
+	<cript src="clock2.js"></script>
+</body>
